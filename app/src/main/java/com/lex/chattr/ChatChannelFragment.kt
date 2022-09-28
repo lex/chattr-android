@@ -44,7 +44,7 @@ class ChatChannelFragment : Fragment() {
         val chatMessageAdapter: JsonAdapter<ChatMessage> = moshi.adapter(ChatMessage::class.java)
 
         val client = OkHttpClient()
-        val request = Request.Builder().url("ws://10.0.2.2:8000/ws/channel/${channelId}/").build()
+        val request = Request.Builder().url("${getString(R.string.API_URL)}/ws/channel/${channelId}/").build()
 
         binding.textviewChatMessages.movementMethod = ScrollingMovementMethod()
         binding.buttonSendMessage.setOnClickListener {

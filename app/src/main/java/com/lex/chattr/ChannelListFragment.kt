@@ -62,7 +62,7 @@ class ChannelListFragment : Fragment() {
         val adapter: JsonAdapter<List<ChatChannel>> = moshi.adapter(listType)
 
         val request = Request.Builder()
-            .url("http://10.0.2.2:8000/chat/list/")
+            .url("${getString(R.string.API_URL)}/chat/list/")
             .build()
 
         client.newCall(request).enqueue(object : Callback {
