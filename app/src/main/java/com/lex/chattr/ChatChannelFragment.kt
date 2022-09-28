@@ -1,10 +1,12 @@
 package com.lex.chattr
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import com.lex.chattr.databinding.FragmentChatChannelBinding
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -30,6 +32,7 @@ class ChatChannelFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.textviewChatMessages.movementMethod = ScrollingMovementMethod()
         binding.buttonSendMessage.setOnClickListener {
             val message = binding.edittextMessage.text
             println(message)
@@ -55,6 +58,7 @@ class ChatChannelFragment : Fragment() {
                 activity?.runOnUiThread {
                     binding.textviewChatMessages.text =
                         "${binding.textviewChatMessages.text}${message?.timestamp} ${message?.username} ${message?.message}\n"
+                    binding.scrollView.fullScroll(ScrollView.FOCUS_DOWN)
                 }
             }
         })
