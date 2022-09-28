@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.lex.chattr.FirstFragment"
+        android:name="com.lex.chattr.WelcomeFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_welcome">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
