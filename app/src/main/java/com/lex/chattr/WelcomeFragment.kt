@@ -33,7 +33,7 @@ class WelcomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonUsernameNext.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            findNavController().navigate(R.id.action_WelcomeFragment_to_ChannelListFragment)
         }
     }
 

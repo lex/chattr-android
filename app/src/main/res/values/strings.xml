@@ -2,8 +2,9 @@
     <string name="app_name">Chattr</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">Welcome to Chattr</string>
-    <string name="second_fragment_label">Choose a channel</string>
+    <string name="welcome_fragment_label">Welcome to Chattr</string>
+    <string name="channel_list_fragment_label">Choose a channel</string>
+    <string name="chat_channel_fragment_label">undefined channel</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 

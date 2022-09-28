@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lex.chattr.databinding.FragmentChannelListBinding
 import com.squareup.moshi.JsonAdapter
@@ -35,7 +36,9 @@ class ChannelListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        channelAdapter = ChannelAdapter(chatChannels) { chatChannel -> println(chatChannel) }
+        channelAdapter = ChannelAdapter(chatChannels) { chatChannel ->
+            findNavController().navigate(R.id.action_ChannelListFragment_to_ChatChannelFragment)
+        }
         val layoutManager = LinearLayoutManager(activity!!.applicationContext)
         binding.recyclerViewChannels.layoutManager = layoutManager
         binding.recyclerViewChannels.adapter = channelAdapter
