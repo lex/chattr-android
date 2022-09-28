@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.lex.chattr.SecondFragment"
+        android:name="com.lex.chattr.ChannelListFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_channel_list">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
