@@ -10,7 +10,8 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import okhttp3.*
 
-class ChatChannelFragment: Fragment() {
+
+class ChatChannelFragment : Fragment() {
 
     private var _binding: FragmentChatChannelBinding? = null
 
@@ -29,13 +30,19 @@ class ChatChannelFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.buttonSendMessage.setOnClickListener {
+            val message = binding.edittextMessage.text
+            println(message)
+        }
+
+
         val moshi: Moshi = Moshi.Builder().build()
         val chatMessageAdapter: JsonAdapter<ChatMessage> = moshi.adapter(ChatMessage::class.java)
 
         val client = OkHttpClient()
         val request = Request.Builder().url("ws://10.0.2.2:8000/ws/channel/1/").build()
 
-        webSocket = client.newWebSocket(request, object: WebSocketListener() {
+        webSocket = client.newWebSocket(request, object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: Response) {
                 super.onOpen(webSocket, response)
                 webSocket.send("{\"username\": \"pertti\", \"message\": \"hello i just joined\"}")
@@ -46,7 +53,8 @@ class ChatChannelFragment: Fragment() {
 
                 val message = chatMessageAdapter.fromJson(text)
                 activity?.runOnUiThread {
-                    binding.textviewChatMessages.text = "${binding.textviewChatMessages.text}${message?.timestamp} ${message?.username} ${message?.message}\n"
+                    binding.textviewChatMessages.text =
+                        "${binding.textviewChatMessages.text}${message?.timestamp} ${message?.username} ${message?.message}\n"
                 }
             }
         })

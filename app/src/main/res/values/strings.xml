@@ -7,6 +7,7 @@
     <string name="chat_channel_fragment_label">undefined channel</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="send_message">Send</string>
 
     <string name="welcome">
         Welcome to Chattr!\n\nPlease give us your nickname.
