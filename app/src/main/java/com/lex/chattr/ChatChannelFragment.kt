@@ -32,18 +32,19 @@ class ChatChannelFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.textviewChatMessages.movementMethod = ScrollingMovementMethod()
-        binding.buttonSendMessage.setOnClickListener {
-            val message = binding.edittextMessage.text
-            println(message)
-        }
-
-
         val moshi: Moshi = Moshi.Builder().build()
         val chatMessageAdapter: JsonAdapter<ChatMessage> = moshi.adapter(ChatMessage::class.java)
 
         val client = OkHttpClient()
         val request = Request.Builder().url("ws://10.0.2.2:8000/ws/channel/1/").build()
+
+        binding.textviewChatMessages.movementMethod = ScrollingMovementMethod()
+        binding.buttonSendMessage.setOnClickListener {
+            val message = binding.edittextMessage.text.toString()
+            val m = chatMessageAdapter.toJson(ChatMessage("pertti", message, ""))
+            webSocket.send(m)
+            binding.edittextMessage.text.clear()
+        }
 
         webSocket = client.newWebSocket(request, object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: Response) {
