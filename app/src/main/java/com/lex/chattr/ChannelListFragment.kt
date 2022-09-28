@@ -37,6 +37,9 @@ class ChannelListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // otherwise they just keep piling up on back and forth navigation
+        chatChannels.clear()
+
         channelAdapter = ChannelAdapter(chatChannels) { chatChannel ->
             val username = args.username
             val action =
@@ -47,6 +50,7 @@ class ChannelListFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
+
         val layoutManager = LinearLayoutManager(activity!!.applicationContext)
         binding.recyclerViewChannels.layoutManager = layoutManager
         binding.recyclerViewChannels.adapter = channelAdapter
