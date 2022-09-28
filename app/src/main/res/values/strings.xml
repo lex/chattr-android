@@ -4,10 +4,11 @@
     <!-- Strings used for fragments for navigation -->
     <string name="welcome_fragment_label">Welcome to Chattr</string>
     <string name="channel_list_fragment_label">Choose a channel</string>
-    <string name="chat_channel_fragment_label">undefined channel</string>
+    <string name="chat_channel_fragment_label">#{channelName}</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="send_message">Send</string>
+    <string name="chat_join_message">Hello, I just joined the channel!</string>
 
     <string name="welcome">
         Welcome to Chattr!\n\nPlease give us your nickname.

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ScrollView
+import androidx.navigation.fragment.navArgs
 import com.lex.chattr.databinding.FragmentChatChannelBinding
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -19,6 +20,7 @@ class ChatChannelFragment : Fragment() {
 
     private val binding get() = _binding!!
     private lateinit var webSocket: WebSocket
+    private val args: ChatChannelFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,16 +34,19 @@ class ChatChannelFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val username = args.username
+        val channelId = args.channelId
+
         val moshi: Moshi = Moshi.Builder().build()
         val chatMessageAdapter: JsonAdapter<ChatMessage> = moshi.adapter(ChatMessage::class.java)
 
         val client = OkHttpClient()
-        val request = Request.Builder().url("ws://10.0.2.2:8000/ws/channel/1/").build()
+        val request = Request.Builder().url("ws://10.0.2.2:8000/ws/channel/${channelId}/").build()
 
         binding.textviewChatMessages.movementMethod = ScrollingMovementMethod()
         binding.buttonSendMessage.setOnClickListener {
             val message = binding.edittextMessage.text.toString()
-            val m = chatMessageAdapter.toJson(ChatMessage("pertti", message, ""))
+            val m = chatMessageAdapter.toJson(ChatMessage(username, message, ""))
             webSocket.send(m)
             binding.edittextMessage.text.clear()
         }
@@ -49,7 +54,8 @@ class ChatChannelFragment : Fragment() {
         webSocket = client.newWebSocket(request, object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: Response) {
                 super.onOpen(webSocket, response)
-                webSocket.send("{\"username\": \"pertti\", \"message\": \"hello i just joined\"}")
+                val m = chatMessageAdapter.toJson(ChatMessage(username, getString(R.string.chat_join_message), ""))
+                webSocket.send(m)
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {

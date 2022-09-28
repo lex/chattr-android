@@ -21,6 +21,11 @@
         android:label="@string/channel_list_fragment_label"
         tools:layout="@layout/fragment_channel_list">
 
+        <argument
+            android:name="username"
+            android:defaultValue="undefined"
+            app:argType="string" />
+
         <action
             android:id="@+id/action_ChannelListFragment_to_ChatChannelFragment"
             app:destination="@id/ChatChannelFragment" />
@@ -30,5 +35,17 @@
         android:name="com.lex.chattr.ChatChannelFragment"
         android:label="@string/chat_channel_fragment_label"
         tools:layout="@layout/fragment_channel_list">
+        <argument
+            android:name="username"
+            android:defaultValue="undefined"
+            app:argType="string" />
+        <argument
+            android:name="channelName"
+            android:defaultValue="undefined"
+            app:argType="string" />
+        <argument
+            android:name="channelId"
+            android:defaultValue="-1"
+            app:argType="integer" />
     </fragment>
 </navigation>

@@ -33,7 +33,9 @@ class WelcomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonUsernameNext.setOnClickListener {
-            findNavController().navigate(R.id.action_WelcomeFragment_to_ChannelListFragment)
+            val username = binding.edittextUsername.text.toString()
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToChannelListFragment(username)
+            findNavController().navigate(action)
         }
     }
 
