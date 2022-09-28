@@ -1,12 +1,15 @@
 package com.lex.chattr
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.text.method.ScrollingMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ScrollView
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.navArgs
 import com.lex.chattr.databinding.FragmentChatChannelBinding
 import com.squareup.moshi.JsonAdapter
@@ -50,6 +53,19 @@ class ChatChannelFragment : Fragment() {
             webSocket.send(m)
             binding.edittextMessage.text.clear()
         }
+        binding.edittextMessage.addTextChangedListener( object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                enableSendIfMessageIsNotEmpty()
+            }
+        })
+
+        enableSendIfMessageIsNotEmpty()
 
         webSocket = client.newWebSocket(request, object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: Response) {
@@ -69,6 +85,10 @@ class ChatChannelFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun enableSendIfMessageIsNotEmpty() {
+        binding.buttonSendMessage.isEnabled = binding.edittextMessage.text.toString().isNotBlank()
     }
 
     override fun onDestroyView() {
