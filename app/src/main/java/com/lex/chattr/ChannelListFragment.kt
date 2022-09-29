@@ -17,7 +17,6 @@ import java.io.IOException
 
 
 class ChannelListFragment : Fragment() {
-
     private var _binding: FragmentChannelListBinding? = null
 
     private val chatChannels: MutableList<ChatChannel> = mutableListOf()
@@ -29,7 +28,6 @@ class ChannelListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentChannelListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -78,10 +76,10 @@ class ChannelListFragment : Fragment() {
                     val channels: List<ChatChannel> = adapter.fromJson(response)!!
 
                     chatChannels.addAll(channels)
+
                     activity?.runOnUiThread {
                         channelAdapter.notifyDataSetChanged()
                     }
-
                 }
             }
         })
